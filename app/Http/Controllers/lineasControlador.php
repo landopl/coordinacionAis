@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\linea_investigacion;
+use Laracasts\Flash\Flash;
 
 class lineasControlador extends Controller
 {
@@ -14,7 +15,8 @@ class lineasControlador extends Controller
      */
     public function index()
     {
-        
+        $lineas = linea_investigacion::orderBy('id', 'ASC')->paginate(5);
+        return view('admin.lineas.consultaLineas')->with('lineas', $lineas);  
     }
 
     /**
@@ -38,6 +40,10 @@ class lineasControlador extends Controller
        
         $lineas= new linea_investigacion($request->all());
         $lineas->save();
+
+        flash('Registro exitoso')->success();
+
+        return redirect()->route('lineas.index');
     }
 
     /**
@@ -59,7 +65,9 @@ class lineasControlador extends Controller
      */
     public function edit($id)
     {
-        //
+        $lineas = linea_investigacion::find($id);
+
+        return view('admin.lineas.editar')->with('lineas', $lineas);
     }
 
     /**
@@ -71,7 +79,7 @@ class lineasControlador extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -82,6 +90,10 @@ class lineasControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lineas = linea_investigacion::find($id);
+        $lineas->delete();
+
+        flash('La linea de investigacion <strong>'. $lineas->denominacion . '</strong> ha sido eliminado exitosamente')->error();
+        return redirect()->route('lineas.index');
     }
 }

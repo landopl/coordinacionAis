@@ -9,6 +9,9 @@ use App\proyecto;
 use App\proyecto_tipo;
 use App\proyecto_nombre_tipo;
 use App\proyecto_estatus;
+use App\fecha_registro_proyecto;
+use App\fecha_inicio_proyecto;
+use App\fecha_culminacion_proyecto;
 
 class proyectosControlador extends Controller
 {
@@ -19,7 +22,17 @@ class proyectosControlador extends Controller
      */
     public function index()
     {
- 
+        $proyectos          = proyecto::orderBy('id', 'ASC')->paginate(5);
+        $proyectos_tipo     = proyecto_tipo::all();
+        $proyectos_nombre   = proyecto_nombre_tipo::all();
+        $fechas_registro    = fecha_registro_proyecto::all();
+        $fechas_inicio      = fecha_inicio_proyecto::all();
+        $fechas_culminacion = fecha_culminacion_proyecto::all();
+        $estatus            = proyecto_estatus::all();
+        $lineas             = linea_investigacion::all();
+        
+
+        return view('admin.proyectos.consultaProyectos', ['proyectos' => $proyectos, 'proyectos_tipo' => $proyectos_tipo, 'fechas_registro' => $fechas_registro, 'fechas_inicio' => $fechas_inicio, 'fechas_culminacion' => $fechas_culminacion, 'estatus' => $estatus, 'lineas' => $lineas, 'proyectos_nombre' => $proyectos_nombre]);
     }
 
     /**
@@ -35,6 +48,7 @@ class proyectosControlador extends Controller
         $lineas->toArray();
         $tipo_proyectos = proyecto_nombre_tipo::all();
         $tipo_proyectos->toArray();
+
         return view('admin.proyectos.crear', ['lineas' => $lineas, 'tipo_proyectos' => $tipo_proyectos]);
     }
 
@@ -46,7 +60,7 @@ class proyectosControlador extends Controller
      */
     public function store(Request $request)
     {
-        $proyectos= new proyecto($request->all());
+        $proyectos = new proyecto($request->all());
         $proyectos->save();
         //dd($proyectos);
 
@@ -57,13 +71,28 @@ class proyectosControlador extends Controller
         $proyecto_tipo = new proyecto_tipo($request->all());
         $proyecto_tipo['proyecto_id'] = $proyecto_id['id'];
 
-        $proyecto_nombre_tipo= new proyecto_nombre_tipo($request->all());
+        $proyecto_nombre_tipo = new proyecto_nombre_tipo($request->all());
         $proyecto_tipo['proyecto_tipo_id'] = $proyecto_nombre_tipo['tipo_proyecto'];
         $proyecto_tipo->save();
         //dd($proyecto_tipo);
 
+        $fecha_registro_proyecto = new fecha_registro_proyecto($request->all());
+
+        $fecha_registro_proyecto['proyecto_id'] = $proyecto_id['id'];
+        $fecha_registro_proyecto->save();
+        //dd($fecha_registro_proyecto); 
+
 
         $proyecto_estatus = new proyecto_estatus($request->all());
+        $proyecto_estatus['proyecto_id'] = $proyecto_id['id'];
+        $proyecto_estatus['estatus'] = 'Por iniciar';
+        $proyecto_estatus->save();
+        //dd($proyecto_estatus);
+
+         flash('Registro exitoso')->success();
+
+        return redirect()->route('proyectos.index');
+
     }
 
     /**
@@ -85,7 +114,13 @@ class proyectosControlador extends Controller
      */
     public function edit($id)
     {
-        //
+        $proyectos = proyecto::find($id);
+        $lineas = linea_investigacion::all();
+        $lineas->toArray();
+        $tipo_proyectos = proyecto_nombre_tipo::all();
+        $tipo_proyectos->toArray();
+
+        return view('admin.proyectos.editarProyectos', ['proyectos' =>$proyectos, 'lineas' => $lineas, 'tipo_proyectos' => $tipo_proyectos]);
     }
 
     /**
@@ -108,6 +143,11 @@ class proyectosControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proyecto = proyecto::find($id);
+        $proyecto->delete();
+
+        flash('El proyecto ha sido eliminado exitosamente')->warning();
+        return redirect()->route('proyectos.index');
     }
+        
 }

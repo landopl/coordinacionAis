@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFechasProyectosTable extends Migration
+class AddFechasRegistrosProyectosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class AddFechasProyectosTable extends Migration
      */
     public function up()
     {
-        Schema::create('fechas_proyectos', function (Blueprint $table) {
-            $table->increments('proyecto_id')->unsigned();
+        Schema::create('fechas_registros_proyectos', function (Blueprint $table) {
+            $table->integer('proyecto_id')->unsigned();
             $table->date('fecha_registro_proyecto');
-            $table->date('fecha_inicio_proyecto');
-            $table->date('fecha_culminacion_proyecto');
-
 
             $table->foreign('proyecto_id')->references('id')->on('proyectos')->onDelete('cascade');
 
@@ -33,6 +30,6 @@ class AddFechasProyectosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fechas_proyectos');
+        Schema::dropIfExists('fechas_registros_proyectos');
     }
 }

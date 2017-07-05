@@ -55,7 +55,7 @@
 					
 					<b>{{ 'Seleccione la linea de investigacion a la que pertenece el investigador' }}</b><br>
 					@foreach($lineas as $linea)
-						<input type="radio" name="linea_investigacion_id" value= {!! $linea['id'] !!} checked>{{ $linea['denominacion']}}<br>
+						<input type="radio" name="id" value= {!! $linea['id'] !!} checked>{{ $linea['denominacion']}}<br>
 					@endforeach
 				</label>
 			</div>

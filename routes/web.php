@@ -12,14 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Route::get('login', function (){
-	return view('login');
-});
-
-Route::group(['prefix' => 'admin'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 	Route::resource('usuarios', 'usuariosControlador');
 
@@ -29,19 +25,32 @@ Route::group(['prefix' => 'admin'], function(){
 
 	Route::resource('investigadores', 'investigadoresControlador');
 
-	Route::resource('consultasLineas', 'consultasLineasControlador');
+	Route::resource('coordinadores', 'coordinadoresControlador');
 
-	Route::resource('consultasProyectos', 'consultasProyectosControlador');
+	//Route::resource('sesion', 'loginControlador');
 
-	Route::resource('consultasInvestigadores', 'consultasInvestigadoresControlador');
+	//ruta tipo get.  envia el id del proyecto para ser eliminado con el metodo destry. 'uses' es para definir que controlador usara y seguido de @destroy que se refiere al metodo que esta dentro del controlador.  'as' es para definir la direccion de la vista
+	Route::get('investigadores/{id}/destroy', [
+		'uses' => 'investigadoresControlador@destroy',
+		'as'   => 'admin.investigadores.destroy'
+	]);
 
-	Route::resource('consultasCoordinadores', 'consultasCoordinadoresControlador');
+	Route::get('lineas/{id}/destroy', [
+		'uses' => 'lineasControlador@destroy',
+		'as'   => 'admin.lineas.destroy'
+	]);
 
-	Route::resource('consultasProyectosInvestigadores', 'consultasProyectosInvestigadoresControlador');
-
+	Route::get('proyectos/{id}/destroy', [
+		'uses' => 'proyectosControlador@destroy',
+		'as'   => 'admin.proyectos.destroy'
+	]);
 
 });
 
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

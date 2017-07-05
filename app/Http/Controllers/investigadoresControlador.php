@@ -7,6 +7,7 @@ use Input;
 use App\linea_investigacion;
 use App\investigador;
 use App\tipo_investigador;
+use App\linea_investigador;
 
 
 class investigadoresControlador extends Controller
@@ -18,7 +19,13 @@ class investigadoresControlador extends Controller
      */
     public function index()
     {
+        $investigadores = investigador::orderBy('id', 'ASC')->paginate(5);
+        $lineas         = linea_investigacion::all();
+        $lineas_investigadores = linea_investigador::all();
+        $tipos_investigadores = tipo_investigador::all();
+        //dd($lineas);
         
+        return view('admin.investigadores.consultaInvestigadores', ['investigadores' => $investigadores, 'lineas' => $lineas, 'lineas_investigadores' => $lineas_investigadores, 'tipos_investigadores' => $tipos_investigadores]);
     }
 
     /**
@@ -42,11 +49,21 @@ class investigadoresControlador extends Controller
      */
     public function store(Request $request)
     {
-        $investigadores= new investigador($request->all());
-        //$investigadores->save();
+        $investigador        = new investigador($request->all());
+        $linea_investigacion = new linea_investigacion($request->all());
+        $linea_investigador  = new linea_investigador($request->all());
+        $investigador->save();
+        //dd($investigador);
+        
 
-        $investigadores->tipo_id = Input::get('tipo_id');
-        dd($investigadores['tipo_id']);
+        $linea_investigador['investigador_id']        = $investigador['id'];
+        $linea_investigador['linea_investigacion_id'] = $linea_investigacion['id'];
+        $linea_investigador->save();
+        //dd($linea_investigador);
+
+        flash('Registro exitoso')->success();
+
+        return redirect()->route('investigadores.index'); 
     }
 
     /**
@@ -68,7 +85,12 @@ class investigadoresControlador extends Controller
      */
     public function edit($id)
     {
-        //
+        $investigadores        = investigador::find($id);
+        $lineas                = linea_investigacion::all();
+        $lineas_investigadores = linea_investigador::all();
+        $tipos_investigadores  = tipo_investigador::all();
+
+        return view('admin.investigadores.editarInvestigador', ['investigadores' => $investigadores, 'lineas' => $lineas, 'lineas_investigadores' => $lineas_investigadores, 'tipos_investigadores' => $tipos_investigadores]);
     }
 
     /**
@@ -91,6 +113,10 @@ class investigadoresControlador extends Controller
      */
     public function destroy($id)
     {
-        //
+        $investigador = investigador::find($id);
+        $investigador->delete();
+
+        flash('El investigador '. $investigador->nombre . $investigador->apellido . ' ha sido eliminado exitosamente')->warning();
+        return redirect()->route('investigadores.index');
     }
 }

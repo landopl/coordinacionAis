@@ -25,7 +25,6 @@
 			<div class="col-xs-offset-3 col-xs-9"><br>
 				{!! Form::submit('Registrar', ['class' => 'btn btn-default btn-flat'])!!}
 			</div>
-			
 		</div>
 	{!! Form::close() !!}
 	</div>

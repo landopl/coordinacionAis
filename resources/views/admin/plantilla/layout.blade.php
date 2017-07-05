@@ -58,7 +58,7 @@ desired effect
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>AIS</b></span>
       <!-- logo for regular state and mobile devices -->
@@ -74,33 +74,6 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-         
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-         
-
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -121,17 +94,20 @@ desired effect
              
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                  <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Cerrar Sesion
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
                 </div>
               </li>
             </ul>
           </li>
-         
-          
         </ul>
       </div>
     </nav>
@@ -172,9 +148,10 @@ desired effect
           </a>
 
           <ul class="treeview-menu">
-            <li><a href="">Linea de investigacion</a></li>
-            <li><a href="">Investigadores</a></li>
-            <li><a href="#">Proyectos</a></li>
+            <li><a href="{{ route('lineas.create') }}">Linea de investigacion</a></li>
+            <li><a href="{{ route('investigadores.create') }}">Investigadores</a></li>
+            <li><a href="{{ route('coordinadores.create') }}">Coordinadores</a></li>
+            <li><a href="{{ route('proyectos.create') }}">Proyectos</a></li>
           </ul>
         </li>
 
@@ -185,9 +162,9 @@ desired effect
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Lineas de investigacion</a></li>
-            <li><a href="#">Investigadores</a></li>
-            <li><a href="#">Proyectos</a></li>
+            <li><a href="{{ route('lineas.index') }}">Lineas de investigacion</a></li>
+            <li><a href="{{ route('investigadores.index') }}">Investigadores</a></li>
+            <li><a href="{{ route('proyectos.index') }}">Proyectos</a></li>
           </ul>
         </li>
 
@@ -202,7 +179,7 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Panel de control
+        Coordinacion de investigacion AIS
        
       </h1>
       <ol class="breadcrumb">
@@ -214,9 +191,9 @@ desired effect
     <!-- Main content -->
     <section class="content">
 
-      <!-- Your Page Content Here -->
+      <!-- Your Page Content Here --> 
 
-
+      @include('flash::message')
       @yield('content')
 
 

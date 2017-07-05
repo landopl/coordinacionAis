@@ -10,7 +10,7 @@ class investigador extends Model
     protected $table = "investigadores";
 
     //fillable son los cammpos permitidos para mostrar los datos json (que campos quieres que traiga)
-    protected $fillable =['tipo_id', 'nombre', 'apellido', 'cedula', 'sexo', 'correo', 'telefono', 'linea_investigacion_id', 'fecha_registro_investigador'];
+    protected $fillable =['tipo_id', 'nombre', 'apellido', 'cedula', 'sexo', 'correo', 'telefono', 'fecha_registro_investigador'];
 
 
     public function tipo_investigador()
@@ -30,5 +30,10 @@ class investigador extends Model
      public function coordinador_linea()
     {
         return $this->hasOne('App\linea_coordinador');
+    }
+
+    public function investigador_linea()
+    {
+        return $this->hasMany('App\linea_investigador');
     }
 }

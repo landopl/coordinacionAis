@@ -8,7 +8,7 @@ class proyecto extends Model
 {
     protected $table = "proyectos";
 
-    protected $fillable = ['titulo', 'resumen', 'objetivos', 'justificacion', 'linea_investigacion_id'];
+    protected $fillable = ['id', 'titulo', 'resumen', 'objetivos', 'justificacion', 'linea_investigacion_id'];
 
     public function linea_investigacion_proyecto()
     {
@@ -30,9 +30,20 @@ class proyecto extends Model
     	return $this->belongsToMany('App\investigador')->withTimestamps(); // Relacion de muchos a muchos
     }
 
-    public function proyecto_fecha()
+    public function proyecto_fecha_registro()
     {
-    	return $this->belongsTo('AA\fecha_proyecto');
+    	return $this->hasMany('App\fecha_registro_proyecto');
+    }
+
+    public function proyecto_fecha_inicio()
+    {
+        return $this->hasMany('App\fecha_inicio_proyecto');
+    }
+
+
+    public function proyecto_fecha_culminacion()
+    {
+        return $this->hasMany('App\fecha_registro_proyecto');
     }
 }
 	

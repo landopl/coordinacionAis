@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\investigador;
+use App\linea_investigacion;
+use App\linea_investigador;
+use App\linea_coordinador;
 
-class consultasInvestigadoresControlador extends Controller
+class coordinadoresControlador extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +27,11 @@ class consultasInvestigadoresControlador extends Controller
      */
     public function create()
     {
+       
+        $lineas = linea_investigacion::all();
+
         
+        return view('admin.coordinadores.crearCoordinadores', ['lineas' => $lineas]);
     }
 
     /**
@@ -34,7 +42,14 @@ class consultasInvestigadoresControlador extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $coordinador = new investigador($request->all());
+        $lineas = new linea_investigacion($request->all());
+        $coordinadorDatos  = investigador::all();
+        $linea_coordinador = linea_coordinador::all();
+
+        dd($coordinador);
+        
+        
     }
 
     /**
@@ -45,7 +60,7 @@ class consultasInvestigadoresControlador extends Controller
      */
     public function show($id)
     {
-        return view('admin.consultas.consultaInvestigadores');
+        //
     }
 
     /**

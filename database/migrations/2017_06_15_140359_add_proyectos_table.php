@@ -22,7 +22,7 @@ class AddProyectosTable extends Migration
             $table->integer('linea_investigacion_id')->unsigned();
 
 
-            $table->foreign('linea_investigacion_id')->references('id')->on('lineas_investigacion')->onDelete('cascade');
+            $table->foreign('linea_investigacion_id')->references('id')->on('lineas_investigacion');
 
 
 

@@ -22,13 +22,9 @@ class AddInvestigadoresTable extends Migration
             $table->char('sexo');
             $table->string('correo');
             $table->double('telefono');
-            $table->integer('linea_investigacion_id')->unsigned();
             $table->date('fecha_registro_investigador');
 
             $table->foreign('tipo_id')->references('tipo_id')->on('tipos_investigadores')->onDelete('cascade');
-
-            // $table->foreign('linea_investigacion_id')->references('id')->on('lineas_investigacion')->onDelete('cascade');
-
 
             $table->timestamps();
         });

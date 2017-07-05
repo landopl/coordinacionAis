@@ -40,6 +40,8 @@
 			</div>
 		</div>
 
+		{{ Form::hidden('fecha_registro_proyecto', $fecha_registro_proyecto = date("Y-m-d")) }}  
+
 		<div class="form-group">
 			<div class="col-xs-offset-3 col-xs-9">
 				<br>

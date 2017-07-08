@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('login');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
@@ -46,10 +46,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	]);
 
 });
-
-
-
-
 
 Auth::routes();
 

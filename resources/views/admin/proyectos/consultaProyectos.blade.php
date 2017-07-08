@@ -95,9 +95,9 @@
                                 @endif
                               @endforeach
 
-                              <td><a href="{{ route('proyectos.edit', $proyecto->id) }}" class="btn btn-default btn-flat">Editar</a></td>
+                              <td><a href="{{ route('proyectos.edit', $proyecto->id) }}" class="btn btn-success btn-flat">Editar</a></td>
 
-                              <td><a href="{{ route('admin.proyectos.destroy', $proyecto->id) }}" onclick="return confirm('¿Esta seguro que desea eliminar el proyecto?')" class="btn btn-default btn-flat">Eliminar</a></td>
+                              <td><a href="{{ route('admin.proyectos.destroy', $proyecto->id) }}" onclick="return confirm('¿Esta seguro que desea eliminar el proyecto?')" class="btn btn-success btn-flat">Eliminar</a></td>
                             </tr>
                           @endforeach
 				            </table>

@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
 
-	<h1>Registrar Proyecto</h1><br>
+	<?php $__env->startSection('h1','Registrar Proyecto'); ?>
 
 	<div class="form-horizontal">
 		<?php echo Form::open(['route' => 'proyectos.store', 'method' => 'POST']); ?>
@@ -65,7 +65,7 @@
 
 		<div class="form-group">
 			<div class="col-xs-offset-3 col-xs-9">
-				<?php echo Form::submit('Registrar', ['class' => 'btn btn-default btn-flat']); ?>
+				<?php echo Form::submit('Registrar', ['class' => 'btn btn-success btn-flat']); ?>
 
 			</div>
 			

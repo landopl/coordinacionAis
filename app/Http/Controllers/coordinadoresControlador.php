@@ -43,12 +43,29 @@ class coordinadoresControlador extends Controller
     public function store(Request $request)
     {
         $coordinador = new investigador($request->all());
-        $lineas = new linea_investigacion($request->all());
+        $lineas = linea_investigacion::find(request());
         $coordinadorDatos  = investigador::all();
-        $linea_coordinador = linea_coordinador::all();
+        $linea_coordinador =  new linea_coordinador($request->all());
 
-        dd($coordinador);
         
+
+        foreach ($coordinadorDatos as $coordinadorDato) {
+            foreach ($lineas as $linea) {
+                   $linea_coordinador['linea_investigacion_id'] = $linea['id'];
+                
+                if ($coordinadorDato['cedula'] == $coordinador['cedula']) {
+                    $linea_coordinador['investigador_id'] = $coordinadorDato['id'];            
+                    
+                }else{
+                    echo "No se encuentra registrado el investigador";
+                }
+            }
+
+        }
+        $linea_coordinador->save();
+        
+        //dd($linea_coordinador['investigador_id'] = $coordinador['id']);
+      
         
     }
 

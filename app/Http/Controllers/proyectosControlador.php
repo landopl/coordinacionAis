@@ -22,7 +22,7 @@ class proyectosControlador extends Controller
      */
     public function index()
     {
-        $proyectos          = proyecto::orderBy('id', 'ASC')->paginate(5);
+        $proyectos          = proyecto::orderBy('id', 'ASC')->paginate(1);
         $proyectos_tipo     = proyecto_tipo::all();
         $proyectos_nombre   = proyecto_nombre_tipo::all();
         $fechas_registro    = fecha_registro_proyecto::all();

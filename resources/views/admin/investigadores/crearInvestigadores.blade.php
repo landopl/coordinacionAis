@@ -2,9 +2,8 @@
 
 @section('content')
 
-	<h1>Registrar Investigadores</h1>
+	@section('h1', 'Registrar Investigadores')
 
-	<br><br>
 
 	<div class="form-horizontal">
 		{!! Form::open(['route' => 'investigadores.store', 'method' => 'POST']) !!}
@@ -50,15 +49,14 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-offset-3 col-xs-9">
-				<label class="radio-inline">
-					
-					<b>{{ 'Seleccione la linea de investigacion a la que pertenece el investigador' }}</b><br>
+			
+				<select class="col-xs-offset-3" name="linea">
+					<option>Seleccione la linea de investigacion</option>
 					@foreach($lineas as $linea)
-						<input type="radio" name="id" value= {!! $linea['id'] !!} checked>{{ $linea['denominacion']}}<br>
+						<option value="{{$linea->id}}">{{$linea->denominacion}}</option>
 					@endforeach
-				</label>
-			</div>
+				</select>
+			
 		</div>
 
 		<div class="form-group">
@@ -75,8 +73,8 @@
 
 		{{ Form::hidden('fecha_registro_investigador', $fecha_registro_investigador = date("Y-m-d")) }}                       
 		<div class="form-group">
-			<div class="col-xs-offset-3 col-xs-9"><br>
-				{!! Form::submit('Registrar', ['class' => 'btn btn-default btn-flat'])!!}
+			<div class="col-xs-offset-3 col-xs-9">
+				{!! Form::submit('Registrar', ['class' => 'btn btn-success btn-flat'])!!}
 			</div>
 			
 		</div>

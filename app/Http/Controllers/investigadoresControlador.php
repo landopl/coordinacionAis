@@ -49,15 +49,16 @@ class investigadoresControlador extends Controller
      */
     public function store(Request $request)
     {
-        $investigador        = new investigador($request->all());
-        $linea_investigacion = new linea_investigacion($request->all());
+        $investigadores        = new investigador($request->all());
+        $lineas = linea_investigacion::find(request());
         $linea_investigador  = new linea_investigador($request->all());
-        $investigador->save();
-        //dd($investigador);
+        $investigadores->save();
+        $linea_investigador['investigador_id'] = $investigadores['id'];
         
-
-        $linea_investigador['investigador_id']        = $investigador['id'];
-        $linea_investigador['linea_investigacion_id'] = $linea_investigacion['id'];
+        foreach ($lineas as $linea) {
+            $linea_investigador['linea_investigacion_id'] = $linea['id'];
+        }
+        
         $linea_investigador->save();
         //dd($linea_investigador);
 
@@ -116,7 +117,7 @@ class investigadoresControlador extends Controller
         $investigador = investigador::find($id);
         $investigador->delete();
 
-        flash('El investigador '. $investigador->nombre . $investigador->apellido . ' ha sido eliminado exitosamente')->warning();
+        flash('El investigador '. $investigador->nombre . $investigador->apellido . ' ha sido eliminado exitosamente')->error();
         return redirect()->route('investigadores.index');
     }
 }

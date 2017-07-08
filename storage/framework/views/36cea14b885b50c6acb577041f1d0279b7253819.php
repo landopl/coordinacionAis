@@ -1,8 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
-	<h1>Registrar Investigadores</h1>
+	<?php $__env->startSection('h1', 'Registrar Investigadores'); ?>
 
-	<br><br>
 
 	<div class="form-horizontal">
 		<?php echo Form::open(['route' => 'investigadores.store', 'method' => 'POST']); ?>
@@ -59,15 +58,14 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-offset-3 col-xs-9">
-				<label class="radio-inline">
-					
-					<b><?php echo e('Seleccione la linea de investigacion a la que pertenece el investigador'); ?></b><br>
+			
+				<select class="col-xs-offset-3" name="linea">
+					<option>Seleccione la linea de investigacion</option>
 					<?php $__currentLoopData = $lineas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $linea): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-						<input type="radio" name="id" value= <?php echo $linea['id']; ?> checked><?php echo e($linea['denominacion']); ?><br>
+						<option value="<?php echo e($linea->id); ?>"><?php echo e($linea->denominacion); ?></option>
 					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-				</label>
-			</div>
+				</select>
+			
 		</div>
 
 		<div class="form-group">
@@ -84,8 +82,8 @@
 
 		<?php echo e(Form::hidden('fecha_registro_investigador', $fecha_registro_investigador = date("Y-m-d"))); ?>                       
 		<div class="form-group">
-			<div class="col-xs-offset-3 col-xs-9"><br>
-				<?php echo Form::submit('Registrar', ['class' => 'btn btn-default btn-flat']); ?>
+			<div class="col-xs-offset-3 col-xs-9">
+				<?php echo Form::submit('Registrar', ['class' => 'btn btn-success btn-flat']); ?>
 
 			</div>
 			

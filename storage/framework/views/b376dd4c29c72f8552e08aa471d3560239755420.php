@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="<?php echo e(app()->getLocale()); ?>">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,27 +34,28 @@
   <div class="login-box-body">
     <p class="login-box-msg">Inicie sesion</p>
 
-    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-        {{ csrf_field() }}
-      <div class="form-group has-feedback">
-        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(route('login')); ?>">
+        <?php echo e(csrf_field()); ?>
 
-          @if ($errors->has('email'))
+      <div class="form-group has-feedback">
+        <input id="email" type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>" required autofocus>
+
+          <?php if($errors->has('email')): ?>
             <span class="help-block">
-                <strong>{{ $errors->first('email') }}</strong>
+                <strong><?php echo e($errors->first('email')); ?></strong>
             </span>
-          @endif
+          <?php endif; ?>
 
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
         <input id="password" type="password" class="form-control" name="password" required>
 
-          @if ($errors->has('password'))
+          <?php if($errors->has('password')): ?>
             <span class="help-block">
-              <strong>{{ $errors->first('password') }}</strong>
+              <strong><?php echo e($errors->first('password')); ?></strong>
             </span>
-          @endif
+          <?php endif; ?>
 
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>

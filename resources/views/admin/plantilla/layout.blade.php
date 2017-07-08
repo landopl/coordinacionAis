@@ -179,13 +179,8 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Coordinacion de investigacion AIS
-       
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Panel de Control</a></li>
-        <li class="active">Menu</li>
-      </ol>
+        @yield('h1')    
+      </h1> 
     </section>
 
     <!-- Main content -->

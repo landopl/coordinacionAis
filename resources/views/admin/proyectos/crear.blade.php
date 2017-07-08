@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<h1>Registrar Proyecto</h1><br>
+	@section('h1','Registrar Proyecto')
 
 	<div class="form-horizontal">
 		{!! Form::open(['route' => 'proyectos.store', 'method' => 'POST']) !!}
@@ -59,7 +59,7 @@
 
 		<div class="form-group">
 			<div class="col-xs-offset-3 col-xs-9">
-				{!! Form::submit('Registrar', ['class' => 'btn btn-default btn-flat'])!!}
+				{!! Form::submit('Registrar', ['class' => 'btn btn-success btn-flat'])!!}
 			</div>
 			
 		</div>

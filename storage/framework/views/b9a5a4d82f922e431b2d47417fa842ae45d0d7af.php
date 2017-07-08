@@ -28,7 +28,7 @@
 
 		<div class="form-group">
 			<div class="col-xs-offset-3 col-xs-9"><br>
-				<?php echo Form::submit('Registrar', ['class' => 'btn btn-default btn-flat']); ?>
+				<?php echo Form::submit('Registrar', ['class' => 'btn btn-success btn-flat']); ?>
 
 			</div>
 		</div>

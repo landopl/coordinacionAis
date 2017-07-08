@@ -56,9 +56,9 @@
                            
                             <td>{{ $investigador->fecha_registro_investigador }}</td>
 
-                             <td><a href="{{ route('investigadores.edit', $investigador->id) }}" class="btn btn-default btn-flat">Editar</a></td>
+                             <td><a href="{{ route('investigadores.edit', $investigador->id) }}" class="btn btn-success btn-flat">Editar</a></td>
 
-                            <td><a href="{{ route('admin.investigadores.destroy', $investigador->id) }}" onclick="return confirm('¿Esta seguro que desea eliminar el investigador?')" class="btn btn-default btn-flat">Eliminar</a></td>
+                            <td><a href="{{ route('admin.investigadores.destroy', $investigador->id) }}" onclick="return confirm('¿Esta seguro que desea eliminar el investigador?')" class="btn btn-success btn-flat">Eliminar</a></td>
                           </tr>
                         @endforeach
 				            </table>
